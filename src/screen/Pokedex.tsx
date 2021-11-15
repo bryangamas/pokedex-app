@@ -26,7 +26,6 @@ export default function PokedexScreen({
 
   return (
     <View>
-      <Text>We are on PokedexScreen</Text>
       <PokemonList pokemons={pokemons} />
     </View>
   );

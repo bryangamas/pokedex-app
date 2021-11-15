@@ -22,13 +22,11 @@ export const getPokemonByUrlApi = async (url: string) => {
     const { data }: { data: OriginalPokemonDetailEntity } = await axios.get(
       url
     );
-    // console.log(data);
     return data;
   } catch (e) {
     throw e;
   }
 };
-//
 
 export const getFormattedPokemonInfoApi = async () => {
   const pokemons = await getPokemonsApi();
