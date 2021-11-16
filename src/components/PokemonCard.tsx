@@ -28,8 +28,20 @@ const PokemonCard = ({ pokemon }: PokemonCardProps) => {
   return (
     <TouchableWithoutFeedback onPress={handlePress}>
       <View style={cardStyles}>
-        <Text style={styles.name}>{pokemon.name}</Text>
-        <Text style={styles.name}>{pokemon.order}</Text>
+        <Text style={styles.name}>{pokemon.name?.toUpperCase()}</Text>
+        <Text style={styles.name}>#{String(pokemon.id).padStart(3, "0")}</Text>
+        <View
+          style={{
+            height: 120,
+            width: 120,
+            backgroundColor: "#fff",
+            opacity: 0.2,
+            position: "absolute",
+            borderRadius: 60,
+            bottom: -25,
+            right: -25,
+          }}
+        />
         <Image source={{ uri: pokemon.image }} style={styles.image} />
       </View>
     </TouchableWithoutFeedback>
@@ -51,11 +63,18 @@ const styles = StyleSheet.create({
     height: 110,
     width: 110,
   },
-  name: {},
-  info: {
-    flex: 1,
-    alignItems: "flex-end",
-    flexDirection: "row",
+  name: {
+    fontWeight: "bold",
+    color: "#fff",
+    fontSize: 16,
+  },
+  shadow: {
+    height: 120,
+    width: 120,
+    position: "absolute",
+    right: -25,
+    bottom: -25,
+    borderRadius: 60,
   },
 });
 
