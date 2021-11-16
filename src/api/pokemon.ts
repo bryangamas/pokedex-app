@@ -6,12 +6,16 @@ import {
   PokemonEntity,
 } from "../util/types/pokemon";
 
-export const getPokemonsApi = async () => {
+export const getPokemonsApi = async (nextUrl?: string) => {
   try {
-    const url = `${API_BASE}/pokemon?limit=20&offset=0`;
-    const { data }: { data: { results: OriginalPokemonEntity[] } } =
+    const url = nextUrl || `${API_BASE}/pokemon?limit=20&offset=0`;
+    const {
+      data,
+    }: { data: { results: OriginalPokemonEntity[]; next: string } } =
       await axios.get(url);
-    return data.results;
+    const pokemons = data.results;
+    const next = data.next;
+    return { pokemons, next };
   } catch (e) {
     throw e;
   }
@@ -28,8 +32,10 @@ export const getPokemonByUrlApi = async (url: string) => {
   }
 };
 
-export const getFormattedPokemonInfoApi = async () => {
-  const pokemons = await getPokemonsApi();
+export const getFormattedPokemonInfoApi = async (
+  nextUrl?: string
+): Promise<[PokemonEntity[], string]> => {
+  const { pokemons, next } = await getPokemonsApi(nextUrl);
   const pokemonsDetail = await Promise.all(
     pokemons.map(async ({ url }): Promise<PokemonEntity> => {
       const originalDetail = await getPokemonByUrlApi(url);
@@ -46,5 +52,5 @@ export const getFormattedPokemonInfoApi = async () => {
       };
     })
   );
-  return pokemonsDetail;
+  return [pokemonsDetail, next];
 };

@@ -13,7 +13,7 @@ interface PokemonCardProps {
   pokemon: PokemonEntity;
 }
 
-export default function PokemonCard({ pokemon }: PokemonCardProps) {
+const PokemonCard = ({ pokemon }: PokemonCardProps) => {
   const cardStyles = {
     backgroundColor: getColorByPokemonType(pokemon.types),
     ...styles.card,
@@ -26,14 +26,13 @@ export default function PokemonCard({ pokemon }: PokemonCardProps) {
   return (
     <TouchableWithoutFeedback onPress={handlePress}>
       <View style={cardStyles}>
-        <View style={styles.info}>
-          <Text style={styles.name}>{pokemon.name}</Text>
-        </View>
+        <Text style={styles.name}>{pokemon.name}</Text>
+        <Text style={styles.name}>{pokemon.order}</Text>
         <Image source={{ uri: pokemon.image }} style={styles.image} />
       </View>
     </TouchableWithoutFeedback>
   );
-}
+};
 
 const styles = StyleSheet.create({
   card: {
@@ -57,3 +56,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
 });
+
+export default React.memo(PokemonCard);
