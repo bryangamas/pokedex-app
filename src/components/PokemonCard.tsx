@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 import {
   Image,
   StyleSheet,
@@ -8,19 +9,20 @@ import {
 } from "react-native";
 import { getColorByPokemonType } from "../util/pokemonUtil";
 import { PokemonEntity } from "../util/types/pokemon";
-
 interface PokemonCardProps {
   pokemon: PokemonEntity;
 }
 
 const PokemonCard = ({ pokemon }: PokemonCardProps) => {
+  const navigation = useNavigation();
+
   const cardStyles = {
     backgroundColor: getColorByPokemonType(pokemon.types),
     ...styles.card,
   };
 
   const handlePress = () => {
-    console.log("Go to: " + pokemon.name);
+    navigation.navigate("Pokemon" as never, pokemon as never);
   };
 
   return (

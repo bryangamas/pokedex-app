@@ -43,12 +43,14 @@ export const getFormattedPokemonInfoApi = async (
       const image =
         originalDetail.sprites.other["official-artwork"].front_default;
       const types = originalDetail.types.map(({ type }) => type);
+      const number = String(id).padStart(3, "0");
       return {
         id,
         name,
         order,
         image,
         types,
+        number,
       };
     })
   );

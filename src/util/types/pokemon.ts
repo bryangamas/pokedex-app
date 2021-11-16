@@ -20,6 +20,7 @@ export interface OriginalPokemonDetailEntity extends BasePokemonEntity {
 export interface PokemonEntity extends BasePokemonEntity {
   image: string;
   types: PokemonTypeEntity[];
+  number: string;
 }
 
 export interface OriginalPokemonTypeEntity {

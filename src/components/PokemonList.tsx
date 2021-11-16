@@ -5,7 +5,7 @@ import PokemonCard from "./PokemonCard";
 
 interface PokemonListProps {
   pokemons: PokemonEntity[];
-  loadMore: Function;
+  loadMore: VoidFunction;
   isNext: boolean;
 }
 
@@ -21,11 +21,7 @@ export default function PokemonList({
         numColumns={2}
         renderItem={({ item }) => <PokemonCard pokemon={item} />}
         contentContainerStyle={styles.container}
-        onEndReached={
-          isNext
-            ? (loadMore as (info: { distanceFromEnd: number }) => void)
-            : null
-        }
+        onEndReached={isNext ? loadMore : null}
         onEndReachedThreshold={0.1}
         ListFooterComponent={
           isNext ? (
