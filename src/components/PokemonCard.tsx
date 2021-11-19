@@ -30,18 +30,7 @@ const PokemonCard = ({ pokemon }: PokemonCardProps) => {
       <View style={cardStyles}>
         <Text style={styles.name}>{pokemon.name?.toUpperCase()}</Text>
         <Text style={styles.name}>#{String(pokemon.id).padStart(3, "0")}</Text>
-        <View
-          style={{
-            height: 120,
-            width: 120,
-            backgroundColor: "#fff",
-            opacity: 0.2,
-            position: "absolute",
-            borderRadius: 60,
-            bottom: -25,
-            right: -25,
-          }}
-        />
+        <View style={styles.shadow} />
         <Image source={{ uri: pokemon.image }} style={styles.image} />
       </View>
     </TouchableWithoutFeedback>
@@ -71,10 +60,12 @@ const styles = StyleSheet.create({
   shadow: {
     height: 120,
     width: 120,
+    backgroundColor: "#fff",
+    opacity: 0.2,
     position: "absolute",
-    right: -25,
-    bottom: -25,
     borderRadius: 60,
+    bottom: -25,
+    right: -25,
   },
 });
 
