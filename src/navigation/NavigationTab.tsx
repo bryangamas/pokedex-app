@@ -6,6 +6,8 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import FavoriteScreen from "../screen/Favorite";
 import AccountScreen from "../screen/Account";
 import PokedexNavigation from "./PokedexNavigation";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/core";
 
 const Tab = createBottomTabNavigator();
 
@@ -49,11 +51,21 @@ const getPokeball = ({ focused }: { focused: boolean }) => {
   const style = {
     width: 65,
     height: 65,
-    top: -15,
     opacity: focused ? 1 : 0.8,
   };
 
+  const containerStyle = {
+    top: -15,
+  };
+
+  const navigation = useNavigation();
+
   return (
-    <Image source={require("../assets/icons/pokeball.png")} style={style} />
+    <TouchableWithoutFeedback
+      onPress={() => navigation.navigate("Home" as never)}
+      style={containerStyle}
+    >
+      <Image source={require("../assets/icons/pokeball.png")} style={style} />
+    </TouchableWithoutFeedback>
   );
 };

@@ -8,6 +8,7 @@ export default function Types({ types }: { types: PokemonTypeEntity[] }) {
     <View style={styles.container}>
       {types.map(({ name }) => (
         <Text
+          key={name}
           style={{
             ...styles.pill,
             backgroundColor: getColorByPokemonType([{ name }]),
@@ -25,7 +26,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     paddingHorizontal: 40,
-    marginTop: 20,
+    marginTop: 15,
   },
   pill: {
     backgroundColor: "red",
