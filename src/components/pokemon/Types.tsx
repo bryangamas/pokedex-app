@@ -24,15 +24,16 @@ export default function Types({ types }: { types: PokemonTypeEntity[] }) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
     paddingHorizontal: 40,
     marginTop: 15,
   },
   pill: {
-    backgroundColor: "red",
+    backgroundColor: "#fefefe",
     paddingHorizontal: 20,
     paddingVertical: 4,
     borderRadius: 10,
     color: "#FEFEFE",
+    fontSize: 18,
   },
 });

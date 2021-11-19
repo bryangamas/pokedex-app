@@ -1,10 +1,11 @@
 import React from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { View } from "react-native";
 import { ParamListBase } from "@react-navigation/routers";
 import { PokemonEntity } from "../util/types/pokemon";
 import Header from "../components/pokemon/Header";
 import Types from "../components/pokemon/Types";
+import Details from "../components/pokemon/Details";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function PokemonScreen({
   route,
@@ -12,9 +13,10 @@ export default function PokemonScreen({
   const pokemon: PokemonEntity = route.params! as PokemonEntity;
 
   return (
-    <View>
+    <ScrollView>
       <Header pokemon={pokemon} />
       <Types types={pokemon.types} />
-    </View>
+      <Details pokemon={pokemon} />
+    </ScrollView>
   );
 }

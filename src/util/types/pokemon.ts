@@ -15,12 +15,18 @@ export interface OriginalPokemonEntity extends BaseEntity {
 export interface OriginalPokemonDetailEntity extends BasePokemonEntity {
   sprites: any;
   types: OriginalPokemonTypeEntity[];
+  abilities: OriginalPokemonAbilityEntity[];
+  weight: number;
+  height: number;
 }
 
 export interface PokemonEntity extends BasePokemonEntity {
   image: string;
   types: PokemonTypeEntity[];
+  abilities: PokemonAbilityEntity[];
   number: string;
+  weight: number;
+  height: number;
 }
 
 export interface OriginalPokemonTypeEntity {
@@ -28,4 +34,11 @@ export interface OriginalPokemonTypeEntity {
   type: BaseEntity;
 }
 
+export interface OriginalPokemonAbilityEntity {
+  slot: number;
+  ability: BaseEntity;
+}
+
 export interface PokemonTypeEntity extends BaseEntity {}
+
+export interface PokemonAbilityEntity extends BaseEntity {}

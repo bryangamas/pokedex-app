@@ -42,7 +42,10 @@ export const getFormattedPokemonInfoApi = async (
       const { id, name, order } = originalDetail;
       const image =
         originalDetail.sprites.other["official-artwork"].front_default;
+      const height = originalDetail.height * 10;
+      const weight = originalDetail.weight / 10;
       const types = originalDetail.types.map(({ type }) => type);
+      const abilities = originalDetail.abilities.map(({ ability }) => ability);
       const number = String(id).padStart(3, "0");
       return {
         id,
@@ -51,6 +54,9 @@ export const getFormattedPokemonInfoApi = async (
         image,
         types,
         number,
+        abilities,
+        height,
+        weight,
       };
     })
   );
