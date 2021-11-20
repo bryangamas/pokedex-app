@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useFocusEffect } from "@react-navigation/core";
+import { useCallback, useState } from "react";
 import {
   getFavoritesApi,
   isFavoriteApi,
@@ -8,11 +9,13 @@ import {
 export const useFavorite = (id: string) => {
   const [isFavorite, setIsFavorite] = useState<boolean>();
 
-  useEffect(() => {
-    (async () => {
-      setIsFavorite(await isFavoriteApi(id));
-    })();
-  }, [id]);
+  useFocusEffect(
+    useCallback(() => {
+      (async () => {
+        setIsFavorite(await isFavoriteApi(id));
+      })();
+    }, [id])
+  );
 
   const toggleFavorite = async () => {
     const favorites = await getFavoritesApi();

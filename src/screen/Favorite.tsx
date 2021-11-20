@@ -1,15 +1,32 @@
-import React, { useEffect } from "react";
-import { View, Text } from "react-native";
+import React, { useCallback } from "react";
+import { useFocusEffect } from "@react-navigation/core";
+import { Text, View } from "react-native";
+import { getPokemonsDetailsByIdsApi } from "../api/pokemon";
+import PokemonList from "../components/PokemonList";
+import useAuth from "../hooks/useAuth";
 import { getFavoritesApi } from "../util/favoriteUtil";
+import { PokemonEntity } from "../util/types/pokemon";
 
 export default function FavoriteScreen() {
-  useEffect(() => {
-    (async () => console.log(await getFavoritesApi()))();
-  });
+  const [favorites, setFavorites] = React.useState<PokemonEntity[]>([]);
+  const { auth } = useAuth();
+
+  useFocusEffect(
+    useCallback(() => {
+      (async () => {
+        const favoritesIds = await getFavoritesApi();
+        setFavorites(await getPokemonsDetailsByIdsApi(favoritesIds));
+      })();
+    }, [auth])
+  );
 
   return (
     <View>
-      <Text>We are on FavoriteScreen</Text>
+      {!auth ? (
+        <Text>Inicia Sesión</Text>
+      ) : (
+        <PokemonList pokemons={favorites} />
+      )}
     </View>
   );
 }

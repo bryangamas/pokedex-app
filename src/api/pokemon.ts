@@ -39,26 +39,51 @@ export const getFormattedPokemonInfoApi = async (
   const pokemonsDetail = await Promise.all(
     pokemons.map(async ({ url }): Promise<PokemonEntity> => {
       const originalDetail = await getPokemonByUrlApi(url);
-      const { id, name, order } = originalDetail;
-      const image =
-        originalDetail.sprites.other["official-artwork"].front_default;
-      const height = originalDetail.height * 10;
-      const weight = originalDetail.weight / 10;
-      const types = originalDetail.types.map(({ type }) => type);
-      const abilities = originalDetail.abilities.map(({ ability }) => ability);
-      const number = String(id).padStart(3, "0");
-      return {
-        id,
-        name,
-        order,
-        image,
-        types,
-        number,
-        abilities,
-        height,
-        weight,
-      };
+      return formatPokemonInfo(originalDetail);
     })
   );
   return [pokemonsDetail, next];
+};
+
+export async function getPokemonDetailsApi(id: string) {
+  try {
+    const url = `${API_BASE}/pokemon/${id}`;
+    const response = await fetch(url);
+    const result = await response.json();
+    return formatPokemonInfo(result);
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getPokemonsDetailsByIdsApi(ids: string[]) {
+  const pokemonsDetail = await Promise.all(
+    ids.map(async (id): Promise<PokemonEntity> => {
+      return await getPokemonDetailsApi(id);
+    })
+  );
+  return pokemonsDetail;
+}
+
+const formatPokemonInfo = (
+  originalDetail: OriginalPokemonDetailEntity
+): PokemonEntity => {
+  const { id, name, order } = originalDetail;
+  const image = originalDetail.sprites.other["official-artwork"].front_default;
+  const height = originalDetail.height * 10;
+  const weight = originalDetail.weight / 10;
+  const types = originalDetail.types.map(({ type }) => type);
+  const abilities = originalDetail.abilities.map(({ ability }) => ability);
+  const number = String(id).padStart(3, "0");
+  return {
+    id,
+    name,
+    order,
+    image,
+    types,
+    number,
+    abilities,
+    height,
+    weight,
+  };
 };

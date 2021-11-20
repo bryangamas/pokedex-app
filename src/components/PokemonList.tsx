@@ -5,8 +5,8 @@ import PokemonCard from "./PokemonCard";
 
 interface PokemonListProps {
   pokemons: PokemonEntity[];
-  loadMore: VoidFunction;
-  isNext: boolean;
+  loadMore?: VoidFunction;
+  isNext?: boolean;
 }
 
 export default function PokemonList({
