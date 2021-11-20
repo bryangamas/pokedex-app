@@ -1,10 +1,11 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View } from "react-native";
+import LoginForm from "../components/account/LoginForm";
 
 export default function AccountScreen() {
   return (
     <View>
-      <Text>We are on AccountScreen</Text>
+      <LoginForm />
     </View>
   );
 }

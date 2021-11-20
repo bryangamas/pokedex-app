@@ -35,7 +35,7 @@ export default function NavigationTab() {
         name="Account"
         component={AccountScreen}
         options={{
-          title: "Cuenta",
+          title: "Mi cuenta",
           tabBarIcon: ({ color, size }) => (
             <Icon name="user" color={color} size={size} />
           ),
