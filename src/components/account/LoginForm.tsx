@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, TextInput, Button } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { user, userDetails } from "../../util/userDB";
+import useAuth from "../../hooks/useAuth";
 
 export default function LoginForm() {
+  const [error, setError] = useState<string>();
+  const { login } = useAuth();
+
   const {
     control,
     handleSubmit,
@@ -13,10 +18,18 @@ export default function LoginForm() {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: any) => console.log(data);
+  const onSubmit = (data: FormData) => {
+    setError(undefined);
+    const { username, password } = user;
+    if (data.username !== username || data.password !== password) {
+      setError("Usuario o contraseña incorrectos");
+    } else {
+      login!(userDetails);
+    }
+  };
 
   return (
-    <View style={styles.container}>
+    <View>
       <Text style={styles.title}>Iniciar Sesión</Text>
       <Controller
         control={control}
@@ -54,6 +67,7 @@ export default function LoginForm() {
       {errors.password && (
         <Text style={styles.error}>{errors.password.message}</Text>
       )}
+      {error && <Text style={styles.error}>{error}</Text>}
     </View>
   );
 }
@@ -72,9 +86,6 @@ const schema = yup.object({
 });
 
 const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 20,
-  },
   title: {
     textAlign: "center",
     fontSize: 28,
@@ -87,6 +98,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderRadius: 10,
     paddingHorizontal: 20,
+    marginHorizontal: 20,
   },
   error: {
     textAlign: "center",
