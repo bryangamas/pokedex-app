@@ -21,7 +21,7 @@ export default function PokemonScreen({
     navigation.setOptions({
       headerRight: () => auth && <FavoriteButton id={pokemon?.id} />,
     });
-  }, [navigation, pokemon]);
+  }, [navigation, pokemon, auth]);
 
   return (
     <ScrollView>

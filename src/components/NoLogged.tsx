@@ -10,7 +10,7 @@ export default function NoLogged() {
         Debes iniciar sesión para poder ver los favoritos
       </Text>
       <Button
-        title="Inicia Sessión"
+        title="Inicia Sesión"
         onPress={() => navigation.navigate("Account" as never)}
       />
     </View>
