@@ -29,7 +29,7 @@ export default function LoginForm() {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={styles.title}>Iniciar Sesión</Text>
       <Controller
         control={control}
@@ -86,6 +86,9 @@ const schema = yup.object({
 });
 
 const styles = StyleSheet.create({
+  container: {
+    marginHorizontal: 20,
+  },
   title: {
     textAlign: "center",
     fontSize: 28,
@@ -98,7 +101,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderRadius: 10,
     paddingHorizontal: 20,
-    marginHorizontal: 20,
   },
   error: {
     textAlign: "center",

@@ -6,11 +6,20 @@ import Header from "../components/pokemon/Header";
 import Types from "../components/pokemon/Types";
 import Details from "../components/pokemon/Details";
 import { ScrollView } from "react-native-gesture-handler";
+import useAuth from "../hooks/useAuth";
+import FavoriteButton from "../components/pokemon/FavoriteButton";
 
 export default function PokemonScreen({
   route,
+  navigation,
 }: NativeStackScreenProps<ParamListBase>) {
   const pokemon: PokemonEntity = route.params! as PokemonEntity;
+
+  const { auth } = useAuth();
+
+  navigation.setOptions({
+    headerRight: () => auth && <FavoriteButton id={pokemon.id} />,
+  });
 
   return (
     <ScrollView>
