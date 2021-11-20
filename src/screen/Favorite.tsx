@@ -1,11 +1,12 @@
 import React, { useCallback } from "react";
 import { useFocusEffect } from "@react-navigation/core";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { getPokemonsDetailsByIdsApi } from "../api/pokemon";
 import PokemonList from "../components/PokemonList";
 import useAuth from "../hooks/useAuth";
 import { getFavoritesApi } from "../util/favoriteUtil";
 import { PokemonEntity } from "../util/types/pokemon";
+import NoLogged from "../components/NoLogged";
 
 export default function FavoriteScreen() {
   const [favorites, setFavorites] = React.useState<PokemonEntity[]>([]);
@@ -21,12 +22,6 @@ export default function FavoriteScreen() {
   );
 
   return (
-    <View>
-      {!auth ? (
-        <Text>Inicia Sesión</Text>
-      ) : (
-        <PokemonList pokemons={favorites} />
-      )}
-    </View>
+    <View>{!auth ? <NoLogged /> : <PokemonList pokemons={favorites} />}</View>
   );
 }

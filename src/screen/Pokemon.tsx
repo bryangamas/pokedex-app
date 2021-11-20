@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { ParamListBase } from "@react-navigation/routers";
 import { PokemonEntity } from "../util/types/pokemon";
@@ -17,9 +17,11 @@ export default function PokemonScreen({
 
   const { auth } = useAuth();
 
-  navigation.setOptions({
-    headerRight: () => auth && <FavoriteButton id={pokemon.id} />,
-  });
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => auth && <FavoriteButton id={pokemon?.id} />,
+    });
+  }, [navigation, pokemon]);
 
   return (
     <ScrollView>
